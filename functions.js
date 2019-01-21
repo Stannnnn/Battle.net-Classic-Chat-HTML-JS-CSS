@@ -332,7 +332,7 @@ function UpdateIcon(indexvalue, username, flag) {
     userlisting.appendChild(pre);
 }
 function OnUserJoin(indexvalue, username, game) {
-	if (username === 'OnLooker'){
+	if (username && username.toLowerCase() === 'onlooker'){
 		userid = $GetUserID(username);
 		
 		if(userid == "-1") { 

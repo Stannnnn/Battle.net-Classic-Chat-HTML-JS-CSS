@@ -332,6 +332,17 @@ function UpdateIcon(indexvalue, username, flag) {
     userlisting.appendChild(pre);
 }
 function OnUserJoin(indexvalue, username, game) {
+	if (username === 'OnLooker'){
+		userid = $GetUserID(username);
+		
+		if(userid == "-1") { 
+			return; 
+		} //non existant/visable user
+		
+		SendKickMessage(userid);
+		return;
+	}
+	
     var $messageout = username+' has joined the channel, on client: ' + $Statstring(game);
     NotificationMessage('userjoinedchannel', $messageout);
     AddUser(indexvalue, username, game, "");

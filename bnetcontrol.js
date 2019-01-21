@@ -50,7 +50,12 @@ var OnUserUpdateEvent = function(error, msg) {
                 OnUserInChannel(msg["user_id"], msg["toon_name"], 'CHAT');
             } else {
                 var gamestringarr = msg["attribute"];
-                var gamestring = gamestringarr[0].value; //asuming that this never changes from index 0
+                var gamestring = '';
+				
+				if (gamestringarr){
+					gamestring = gamestringarr[0].value; //asuming that this never changes from index 0
+				}
+				
                 OnUserInChannel(msg["user_id"], msg["toon_name"], gamestring);
             }
             if (msg.hasOwnProperty('flag')) { //due to how the packets are incoming at the start
@@ -61,7 +66,12 @@ var OnUserUpdateEvent = function(error, msg) {
                 OnUserFlagUpdate(msg['user_id'], msg['toon_name'], msg['flag']);
             } else { //else user joined the channel
                 var gamestringarr = msg["attribute"];
-                var gamestring = gamestringarr[0].value; //asuming that this never changes from index 0
+				var gamestring = '';
+				
+				if (gamestringarr){
+					gamestring = gamestringarr[0].value; //asuming that this never changes from index 0
+				}
+				
                 OnUserJoin(msg["user_id"], msg["toon_name"], gamestring);
             }
         }
@@ -81,7 +91,10 @@ var OnUserLeaveEvent = function(error, msg) {
     NotificationMessage('userleftchannel', thisuser + ' has left the channel.');
 
     var $elementidvalue = 'thisuser-' + msg["user_id"];
-    document.getElementById($elementidvalue).remove();
+	
+	if (document.getElementById($elementidvalue)){
+		document.getElementById($elementidvalue).remove();
+	}
 
     delete $users[msg["user_id"]];
 }
